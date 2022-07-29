@@ -1,7 +1,6 @@
 package com.spring.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,16 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.spring.mvc.entity.User;
-import com.spring.mvc.service.UserService;
 
 @Controller
 public class ContollerClass {
-	
-	private UserService userService;
-	@Autowired
-	private HibernateTemplate hibernateTemplate;
+
 	
 	
 	// Sending data from controller to view page using Model
@@ -59,20 +55,40 @@ public class ContollerClass {
 	}
 */
 	
-/*
+	/*	
 	// Using @ModelAttribute
 	@RequestMapping(path ="/singup" ,method = RequestMethod.POST)
 	public String singUp(@ModelAttribute User user, Model model) {
+		//int result = userDao.saveUser(user);
+		System.out.println("User with "+ result + " id, is saved.");
 		return "singingUp";		
 	}
-*/
+	
+*/	
+/*	
 	// Save user using ORM
 	@RequestMapping(path ="/singup" ,method = RequestMethod.POST)
 	public String singUp(@ModelAttribute User user, Model model) {
 		System.out.println("singUp  controller");
-		//userService.creatUser(user);
-		hibernateTemplate.save(model);
+		int result = userDao.saveUser(user);
+		System.out.println("Model pass to save() of HT and got id: "+result);
 		return "singingUp";		
 	}	
-
+*/
+	
+	//Demo for RedirectView
+	@RequestMapping("/search")
+	public RedirectView search(@RequestParam("keywords") String query) {
+		if(query=="") {
+			System.out.println("Please enter something");
+		}
+		else {
+			
+		}
+		System.out.println("Serach url handler is runnig");
+		String url = "https://www.google.com/search?q="+query;
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl(url);
+		return redirectView;
+	}
 }

@@ -9,6 +9,11 @@
 <body>
 	<h2>Sing Up</h2>
 	<a href="singup.jsp">Sing Up</a>
+	<form action="search">
+		<input type="text" name="keywords">
+		<button type="submit">Search</button>
+	</form>
+
 
 </body>
 </html>
